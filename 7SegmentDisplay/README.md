@@ -13,6 +13,27 @@
 * 2x buttons
 
 ---
+## Button Counter
+
+### Buttons:
+- Count up button connected from 5V to  pin 2 and (20ohm resistor then ground)   
+- Count down button connected from 5V to pin 3 and (20ohm resistor then ground)
+
+### 7 Segment Display
+  * ledLightA connected to pin 6
+  * ledLightB connected to pin 7
+  * ledLightC connected to pin 10
+  * ledLightD connected to pin 9
+  * ledLightE connected to pin 8 
+  * ledLightF connected to pin 5
+  * ledLightG connected to pin 4
+  * ledLightdp connected to pin 11
+  * one of the GND pins connected to grount with a 20ohm resistor
+
+## Circuit:
+although the resistors are used for safety of the leds a 20ohm resistor is not needed, but would be recommended
+- 
+---
 
 ## Contributers
 
