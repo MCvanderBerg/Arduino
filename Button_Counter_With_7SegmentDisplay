@@ -1,0 +1,199 @@
+/*
+ Created by MCvanderBerg
+ 
+ This code programs a 7 segment display(common anode)
+
+Button Counter
+
+Buttons:
+- Count up button connected from 5V to  pin 2 and (20ohm resistor then ground)   
+- Count down button connected from 5V to pin 3 and (20ohm resistor then ground)
+
+7-Segment Display
+  - ledLightA connected to pin 6
+  - ledLightB connected to pin 7
+  - ledLightC connected to pin 10
+  - ledLightD connected to pin 9
+  - ledLightE connected to pin 8 
+  - ledLightF connected to pin 5
+  - ledLightG connected to pin 4
+  - ledLightdp connected to pin 11
+  - one of the GND pins connected to grount with a 20ohm resistor
+
+Circuit:
+although the resistors are used for safety of the leds a 20ohm resistor is not needed, but would be recommended
+- 
+*/
+
+
+const int ledLightA = 6;
+const int ledLightB = 7;
+const int ledLightC = 10;
+const int ledLightD = 9;
+const int ledLightE = 8; 
+const int ledLightF = 5;
+const int ledLightG = 4;
+const int ledLightdp = 11;
+
+
+const int countUpButton = 2;
+const int countDownButton = 3;
+
+int lastStateUp = LOW;  // the previous state from the input pin
+int currentStateUp; // the current reading from the input pin
+
+int lastStateDown = LOW;  // the previous state from the input pin
+int currentStateDown; // the current reading from the input pin
+
+#define UPLED 12
+
+int counter = 0;
+
+
+void setup() {
+  //initialization of uart (serial communication)
+    Serial.begin(9600);
+  //Initialization of the 7 segment LED display
+  pinMode(ledLightA,OUTPUT);
+  pinMode(ledLightB,OUTPUT);
+  pinMode(ledLightC,OUTPUT);
+  pinMode(ledLightD,OUTPUT);
+  pinMode(ledLightE,OUTPUT);
+  pinMode(ledLightF,OUTPUT);
+  pinMode(ledLightG,OUTPUT);
+  pinMode(ledLightdp,OUTPUT);
+
+  pinMode(UPLED, OUTPUT);
+
+  
+  //Initialization of the up and down buttons
+  pinMode(countUpButton,INPUT_PULLUP);
+  pinMode(countDownButton,INPUT_PULLUP);
+}
+
+void loop() {
+    // read the state of the switch/button:
+  currentStateUp = digitalRead(countUpButton);
+
+  if(lastStateUp == HIGH && currentStateUp == LOW){
+        Serial.println("The up button is released");
+        CountUp();
+  }
+
+  currentStateDown = digitalRead(countDownButton);
+
+  if(lastStateDown == HIGH && currentStateDown == LOW){
+        Serial.println("The  down button is released");
+        CountDown();
+  }
+    
+
+  // save the the last state
+  lastStateUp = currentStateUp;
+    lastStateDown = currentStateDown;
+     reset();
+
+
+
+  switch(counter){
+    case 0: digitalWrite(ledLightA,HIGH);
+            digitalWrite(ledLightB,HIGH);
+            digitalWrite(ledLightC,HIGH);
+            digitalWrite(ledLightD,HIGH);
+            digitalWrite(ledLightE,HIGH);
+            digitalWrite(ledLightF,HIGH);
+            break;
+            
+    case 1: digitalWrite(ledLightB,HIGH);
+            digitalWrite(ledLightC,HIGH);
+            break;
+            
+    case 2: digitalWrite(ledLightA,HIGH);
+            digitalWrite(ledLightB,HIGH);
+            digitalWrite(ledLightG,HIGH);
+            digitalWrite(ledLightE,HIGH);
+            digitalWrite(ledLightD,HIGH);
+            break;
+            
+    case 3: digitalWrite(ledLightA,HIGH);
+            digitalWrite(ledLightB,HIGH);
+            digitalWrite(ledLightG,HIGH);
+            digitalWrite(ledLightC,HIGH);
+            digitalWrite(ledLightD,HIGH);
+            break;
+    
+    case 4: digitalWrite(ledLightF,HIGH);
+            digitalWrite(ledLightG,HIGH);
+            digitalWrite(ledLightB,HIGH);
+            digitalWrite(ledLightC,HIGH);
+            break;
+            
+    case 5: digitalWrite(ledLightA,HIGH);
+            digitalWrite(ledLightF,HIGH);
+            digitalWrite(ledLightG,HIGH);
+            digitalWrite(ledLightC,HIGH);
+            digitalWrite(ledLightD,HIGH);
+            break;
+    
+    case 6: digitalWrite(ledLightA,HIGH);
+            digitalWrite(ledLightF,HIGH);
+            digitalWrite(ledLightE,HIGH);
+            digitalWrite(ledLightD,HIGH);
+            digitalWrite(ledLightC,HIGH);
+            digitalWrite(ledLightG,HIGH);
+            break;
+            
+    case 7: digitalWrite(ledLightA,HIGH);
+            digitalWrite(ledLightB,HIGH);
+            digitalWrite(ledLightC,HIGH);
+            break;
+            
+    case 8: digitalWrite(ledLightA,HIGH);
+            digitalWrite(ledLightB,HIGH);
+            digitalWrite(ledLightC,HIGH);
+            digitalWrite(ledLightD,HIGH);
+            digitalWrite(ledLightE,HIGH);
+            digitalWrite(ledLightF,HIGH);
+            digitalWrite(ledLightG,HIGH);
+            break;
+             
+    case 9: digitalWrite(ledLightG,HIGH);
+            digitalWrite(ledLightF,HIGH);
+            digitalWrite(ledLightA,HIGH);
+            digitalWrite(ledLightB,HIGH);
+            digitalWrite(ledLightC,HIGH);
+            digitalWrite(ledLightD,HIGH);    
+            break;
+  }
+}
+
+void CountUp(){
+  if (counter >= 9){
+    counter = 9;
+  }
+  else{
+      counter++;
+  }
+  }
+
+
+void CountDown(){
+  if(counter <=0){
+    counter = 0;
+  } 
+  else{
+    counter--;
+  }
+
+}
+
+void reset(){
+  digitalWrite(ledLightA,LOW);
+  digitalWrite(ledLightB,LOW);
+  digitalWrite(ledLightC,LOW);
+  digitalWrite(ledLightD,LOW);
+  digitalWrite(ledLightE,LOW);
+  digitalWrite(ledLightF,LOW);
+  digitalWrite(ledLightG,LOW);
+
+}
