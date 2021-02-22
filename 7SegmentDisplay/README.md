@@ -31,8 +31,9 @@
   * one of the GND pins connected to grount with a 20ohm resistor
 
 ## Circuit:
-although the resistors are used for safety of the leds a 20ohm resistor is not needed, but would be recommended
-- 
+
+Although the resistors are used for safety of the leds a 20ohm resistor is not needed, but would be recommended
+
 ---
 
 ## Contributers
