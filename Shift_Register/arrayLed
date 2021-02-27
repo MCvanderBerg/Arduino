@@ -1,0 +1,30 @@
+#define DATA_LINE 2
+#define STORE_CLK 3
+#define SHIFT_CLK 4
+
+
+void pulse(int pinNum);
+
+byte row[8] = {1,1,0,0,0,0,0,0};
+
+void setup() {
+  pinMode(DATA_LINE,OUTPUT);
+  pinMode(SHIFT_CLK,OUTPUT);
+  pinMode(STORE_CLK,OUTPUT);
+}
+
+void loop() {
+  for (int i = 0; i< 8;i++){
+    digitalWrite(DATA_LINE,row[i]);
+    pulse(SHIFT_CLK);
+  }
+  pulse(STORE_CLK);
+  delay(250);
+}
+
+void pulse(int pinNum){
+  digitalWrite(pinNum,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(pinNum,LOW);
+  delayMicroseconds(10);
+}
