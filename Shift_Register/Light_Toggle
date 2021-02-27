@@ -1,0 +1,56 @@
+//Created by 0612 TV(youtube name)
+//Alternating led lights
+
+#define DATA_PIN 2
+#define STORE_CLK 3
+#define SHIFT_CLK 4
+
+void pulse(int pinNum);   //arduino gives a shift in register but for clarity i decided to create it myself
+
+void setup() {
+  pinMode(DATA_PIN, OUTPUT);
+  pinMode(STORE_CLK,OUTPUT);
+  pinMode(SHIFT_CLK,OUTPUT);
+}
+
+void loop() {
+  digitalWrite(DATA_PIN, LOW);
+  pulse(SHIFT_CLK);
+  pulse(SHIFT_CLK);
+  digitalWrite(DATA_PIN,HIGH);
+  pulse(SHIFT_CLK);
+  pulse(SHIFT_CLK);
+  digitalWrite(DATA_PIN,LOW);
+  pulse(SHIFT_CLK);
+  pulse(SHIFT_CLK);
+  digitalWrite(DATA_PIN,HIGH);
+  pulse(SHIFT_CLK);
+  pulse(SHIFT_CLK);
+  
+  pulse(STORE_CLK);
+  delay(1000);
+
+   digitalWrite(DATA_PIN, HIGH);
+  pulse(SHIFT_CLK);
+  pulse(SHIFT_CLK);
+  digitalWrite(DATA_PIN,LOW);
+  pulse(SHIFT_CLK);
+  pulse(SHIFT_CLK);
+  digitalWrite(DATA_PIN,HIGH);
+  pulse(SHIFT_CLK);
+  pulse(SHIFT_CLK);
+  digitalWrite(DATA_PIN,LOW);
+  pulse(SHIFT_CLK);
+  pulse(SHIFT_CLK);
+  
+  pulse(STORE_CLK);
+  delay(1000);
+}
+
+
+void pulse(int pinNum){
+  digitalWrite(pinNum,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(pinNum,LOW);
+  delayMicroseconds(10);
+}
